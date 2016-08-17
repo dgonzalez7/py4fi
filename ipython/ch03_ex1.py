@@ -50,3 +50,26 @@ plot_data = options_data[options_data['IMP_VOL'] > 0]
 maturities = sorted(set(options_data['MATURITY']))
 print maturities
 
+import matplotlib.pyplot as plt         
+# %matplotlib inline         
+plt.figure(figsize=(8, 6))         
+for maturity in maturities:             
+	data = plot_data[options_data.MATURITY == maturity]               
+	# select data for this maturity             
+	plt.plot(data['STRIKE'], data['IMP_VOL'],                      
+		label=maturity.date(), lw=1.5)             
+	plt.plot(data['STRIKE'], data['IMP_VOL'], 'r.')         
+plt.grid(True)         
+plt.xlabel('strike')         
+plt.ylabel('implied volatility of volatility')         
+plt.legend()         
+plt.show()
+
+keep = ['PRICE', 'IMP_VOL']         
+group_data = plot_data.groupby(['MATURITY', 'STRIKE'])[keep]         
+print group_data
+
+group_data = group_data.sum()         
+print group_data.head()
+
+print group_data.index.levels
