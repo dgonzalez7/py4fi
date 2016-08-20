@@ -44,3 +44,34 @@ print f
 g = d + e + f
 print g 
 
+# Strings
+
+t = 'this is a string object'
+print t.capitalize()
+print t.split()
+print t.find('string')
+print t.find('Python')
+print t.replace(' ', '|')
+print 'http://www.python.org'.strip('htp:/')
+
+import re
+
+series = """
+'01/18/2014 13:00:00', 100, '1st';
+'01/18/2014 13:30:00', 110, '2nd';
+'330, '5th','01/22/2014 13:30:00';
+'01/18/2014 14:00:00', 120, '3rd'
+"""
+
+dt = re.compile("'[0-9/:\s]+'")  # datetime
+result = dt.findall(series)
+print result
+
+from datetime import datetime         
+pydt = datetime.strptime(result[2].replace("'", ""),
+		'%m/%d/%Y %H:%M:%S')
+print result[2]
+print pydt
+print type(pydt)
+
+
